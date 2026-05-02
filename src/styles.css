@@ -906,6 +906,536 @@ a {
   color: var(--ink-muted);
 }
 
+/* ---- Segmented control (Rent page kind toggle) ---- */
+
+.seg-control {
+  display: inline-flex;
+  background: var(--surface-tinted);
+  border-radius: 8px;
+  padding: 4px;
+  gap: 2px;
+}
+
+.seg-control button {
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.seg-control button.active {
+  background: #fff;
+  color: var(--brand-blue);
+  box-shadow: var(--surface-shadow);
+}
+
+/* ---- Rentals grid ---- */
+
+.rentals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.rental-card {
+  display: grid;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+}
+
+.rental-card .card-photo {
+  aspect-ratio: 4 / 2.6;
+  border-radius: 0;
+  border: 0;
+  width: 100%;
+}
+
+.rental-body {
+  padding: 12px 14px 14px;
+  display: grid;
+  gap: 4px;
+}
+
+.rental-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rental-price {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.rental-min {
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+.rental-name {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.rental-stats {
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.rental-region {
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+.rental-amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.rental-amenities span {
+  padding: 4px 10px;
+  background: var(--surface-tinted);
+  color: var(--ink);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.rental-agent {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 6px 10px 6px 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 12px;
+  color: var(--ink);
+  cursor: pointer;
+  width: fit-content;
+}
+
+.rental-agent:hover {
+  border-color: var(--brand-blue);
+}
+
+/* ---- Sell page ---- */
+
+.sell-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 720px) {
+  .sell-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.sell-stats > div {
+  background: var(--brand-blue-soft);
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.sell-stats b {
+  display: block;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.sell-stats span {
+  display: block;
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 720px) {
+  .how-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.how-grid > div {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.how-grid .step {
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  background: var(--mars-red);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.how-grid strong {
+  display: block;
+  font-size: 14px;
+}
+
+.how-grid p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.sell-form-section {
+  background: var(--surface-tinted);
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.sell-form {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+  margin-top: 8px;
+}
+
+@media (max-width: 920px) {
+  .sell-form {
+    grid-template-columns: 1fr 1fr;
+  }
+  .sell-form button {
+    grid-column: 1 / -1;
+  }
+}
+
+.sell-form label {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--ink-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sell-form input,
+.sell-form select {
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  background: #fff;
+}
+
+.sell-form .btn-primary {
+  height: 40px;
+}
+
+.estimate-result {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+@media (max-width: 720px) {
+  .estimate-result {
+    grid-template-columns: 1fr;
+  }
+}
+
+.estimate-result strong {
+  display: block;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 4px 0;
+}
+
+.estimate-range {
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+.match-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  background: var(--brand-blue-soft);
+  border-radius: 10px;
+}
+
+.match-card strong {
+  font-size: 16px;
+  margin: 2px 0;
+}
+
+.match-card span {
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 720px) {
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.why-grid > div {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.why-grid svg {
+  color: var(--brand-blue);
+  margin-bottom: 8px;
+}
+
+.why-grid strong {
+  display: block;
+  font-size: 14px;
+}
+
+.why-grid p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 720px) {
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.testimonial-grid blockquote {
+  margin: 0;
+  padding: 18px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.testimonial-grid p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.testimonial-grid footer {
+  display: grid;
+  gap: 2px;
+}
+
+.testimonial-grid strong {
+  font-size: 13px;
+}
+
+.testimonial-grid span {
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+/* ---- Help page ---- */
+
+.help-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 0 14px;
+  height: 52px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  max-width: 580px;
+}
+
+.help-search input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: transparent;
+}
+
+.help-categories {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 18px 0 8px;
+}
+
+@media (max-width: 920px) {
+  .help-categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.help-category {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  text-align: left;
+}
+
+.help-category:hover {
+  border-color: var(--brand-blue);
+}
+
+.help-category.active {
+  border-color: var(--brand-blue);
+  box-shadow: inset 0 0 0 1px var(--brand-blue);
+}
+
+.help-category strong {
+  font-size: 14px;
+}
+
+.help-category span {
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+.faq-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.faq-item {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.faq-item.open .faq-q svg {
+  transform: rotate(180deg);
+}
+
+.faq-a {
+  padding: 0 16px 14px;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.55;
+  display: grid;
+  gap: 6px;
+}
+
+.faq-cat {
+  font-size: 11px;
+  color: var(--brand-blue);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.help-contact .contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 720px) {
+  .help-contact .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.help-contact .contact-grid > div {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  display: grid;
+  gap: 8px;
+}
+
+.help-contact strong {
+  font-size: 14px;
+}
+
+.help-contact p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
 /* ---------- Split view ---------- */
 
 .split {

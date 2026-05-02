@@ -20,6 +20,8 @@ import {
   Ruler,
   Search,
   Share2,
+  ShieldCheck,
+  Sparkles,
   TrendingUp,
   Trees,
 } from "lucide-react";
@@ -858,6 +860,321 @@ const agents = [
 
 const agentsById = Object.fromEntries(agents.map((a) => [a.id, a]));
 
+const rentals = [
+  {
+    id: "rent-jezero-cliff",
+    name: "Jezero Cliffside Hab",
+    kind: "short-term",
+    region: "Jezero Crater, Mars",
+    propertyType: "Cliffside short-term",
+    pricePerSol: 4200,
+    sleeps: 4,
+    habPads: 2,
+    recyclerSuites: 2,
+    minStay: "3 sols",
+    furnished: true,
+    image:
+      "https://images-assets.nasa.gov/image/PIA24487/PIA24487~medium.jpg",
+    amenities: [
+      "Crater rim viewdeck",
+      "Pre-stocked rover parking",
+      "Curated NASA archive library",
+    ],
+    description:
+      "Three-sol minimum on the western fan of Jezero. Sunset over the delta, sample-cache walks at dawn.",
+    agentId: "elon-musk",
+  },
+  {
+    id: "rent-aeolis-studio",
+    name: "Aeolis Mountain Studio",
+    kind: "long-term",
+    region: "Gale Crater, Mars",
+    propertyType: "Studio · 1 hab",
+    monthlyRent: 42000,
+    habPads: 1,
+    recyclerSuites: 1,
+    sleeps: 2,
+    minStay: "6 months",
+    furnished: false,
+    image:
+      "https://images-assets.nasa.gov/image/PIA16032/PIA16032~small.jpg",
+    amenities: [
+      "Sedimentary archive view",
+      "Pressurized garage bay",
+      "Shared community greenhouse",
+    ],
+    description:
+      "Bright single hab pad at the Mount Sharp basecamp. Walk to the geology corridor.",
+    agentId: "tosca-musk",
+  },
+  {
+    id: "rent-insight-bunk",
+    name: "InSight Settlement Bunkhouse",
+    kind: "long-term",
+    region: "Elysium Planitia, Mars",
+    propertyType: "Co-living · 6 habs",
+    monthlyRent: 28000,
+    habPads: 6,
+    recyclerSuites: 4,
+    sleeps: 12,
+    minStay: "12 months",
+    furnished: true,
+    image:
+      "https://images-assets.nasa.gov/image/PIA22236/PIA22236~medium.jpg",
+    amenities: [
+      "Per-bunk pressurization",
+      "Hot-desk recycler suites",
+      "Cargo-bay bike storage",
+    ],
+    description:
+      "Co-living for early settlers. Bunk-by-bunk leases available for engineers on rotation.",
+    agentId: "kimbal-musk",
+  },
+  {
+    id: "rent-olympus-lodge",
+    name: "Olympus Aerosport Lodge",
+    kind: "short-term",
+    region: "Olympus Mons, Mars",
+    propertyType: "Lodge · sleeps 6",
+    pricePerSol: 7800,
+    sleeps: 6,
+    habPads: 3,
+    recyclerSuites: 2,
+    minStay: "5 sols",
+    furnished: true,
+    image:
+      "https://images-assets.nasa.gov/image/PIA22581/PIA22581~medium.jpg",
+    amenities: [
+      "Glider charter included",
+      "Aurora observation cupola",
+      "Tharsis tram passes",
+    ],
+    description:
+      "Five-sol minimum on the Olympus aureole. Includes one tandem glider charter and tram day passes.",
+    agentId: "elon-musk",
+  },
+  {
+    id: "rent-utopia-greenhouse",
+    name: "Utopia Greenhouse Loft",
+    kind: "long-term",
+    region: "Utopia Planitia, Mars",
+    propertyType: "Greenhouse loft",
+    monthlyRent: 35000,
+    habPads: 2,
+    recyclerSuites: 1,
+    sleeps: 3,
+    minStay: "9 months",
+    furnished: true,
+    image:
+      "https://images-assets.nasa.gov/image/PIA17633/PIA17633~medium.jpg",
+    amenities: [
+      "Live-in greenhouse module",
+      "Ice-rights tap (50 L/sol)",
+      "Polar-night blackout shutters",
+    ],
+    description:
+      "Live above the greenhouse. Lunar-style indoor garden with ice-tap utilities included.",
+    agentId: "maye-musk",
+  },
+  {
+    id: "rent-valles-tent",
+    name: "Valles Canyon Tent",
+    kind: "short-term",
+    region: "Valles Marineris, Mars",
+    propertyType: "Cliff tent · sleeps 2",
+    pricePerSol: 9500,
+    sleeps: 2,
+    habPads: 1,
+    recyclerSuites: 1,
+    minStay: "2 sols",
+    furnished: true,
+    image:
+      "https://images-assets.nasa.gov/image/PIA00407/PIA00407~medium.jpg",
+    amenities: [
+      "Cantilevered viewing tent",
+      "Sunrise canyon-cable descent",
+      "Private channel scout-rover",
+    ],
+    description:
+      "A glass-floored canyon tent over the western Valles. Two-sol minimum, no kids.",
+    agentId: "justine-musk",
+  },
+  {
+    id: "rent-meridiani-hostel",
+    name: "Meridiani Heritage Hostel",
+    kind: "short-term",
+    region: "Meridiani Planum, Mars",
+    propertyType: "Hostel · sleeps 8",
+    pricePerSol: 1800,
+    sleeps: 8,
+    habPads: 4,
+    recyclerSuites: 2,
+    minStay: "1 sol",
+    furnished: true,
+    image:
+      "https://images-assets.nasa.gov/image/PIA05273/PIA05273~small.jpg",
+    amenities: [
+      "Bunk dorms",
+      "Heritage walking tour included",
+      "Communal recycler kitchen",
+    ],
+    description:
+      "Backpacker hostel along Opportunity's traverse. Bring your own oxygen pack.",
+    agentId: "vivian-musk",
+  },
+  {
+    id: "rent-gusev-cabin",
+    name: "Gusev Quiet District Cabin",
+    kind: "long-term",
+    region: "Gusev Crater, Mars",
+    propertyType: "Cabin · 2 habs",
+    monthlyRent: 19000,
+    habPads: 2,
+    recyclerSuites: 1,
+    sleeps: 4,
+    minStay: "6 months",
+    furnished: false,
+    image:
+      "https://images-assets.nasa.gov/image/PIA08813/PIA08813~medium.jpg",
+    amenities: [
+      "Volcanic outcrop hiking",
+      "Pre-laid Spirit memorial walkway",
+      "Geothermal-pilot tap-in option",
+    ],
+    description:
+      "A quiet two-pad cabin in the Columbia Hills district. Off the rover-traffic beat.",
+    agentId: "octavia-musk",
+  },
+];
+
+const HELP_FAQ = [
+  {
+    category: "Buying",
+    q: "How is parcel ownership recorded on Mars?",
+    a: "Marsillow records every closed sale to the Marsillow Title Ledger, an off-world deed registry mirrored at three orbital relays. Your title moves with you regardless of which settlement you live in.",
+  },
+  {
+    category: "Buying",
+    q: "Do I need pre-qualification before I can tour a parcel?",
+    a: "No. You can schedule a remote rover tour without pre-qualification. Pre-qualification is required before submitting a binding offer.",
+  },
+  {
+    category: "Buying",
+    q: "Can I make an offer below the Marsestimate®?",
+    a: "Yes. Marsestimate® is Marsillow's modeled forward value, not a list price floor. Your agent will help you frame an offer your seller will actually read.",
+  },
+  {
+    category: "Selling",
+    q: "How does the free Marsestimate® work?",
+    a: "Submit your parcel's region, latitude/longitude, acreage, and parcel type. Marsillow returns a confidence range based on rover validation, elevation, water access, and recent settlement-zone comps.",
+  },
+  {
+    category: "Selling",
+    q: "What does Marsillow charge to list?",
+    a: "Listing on Marsillow is free. We charge a 2.4% closing fee, payable in cash or in-kind ISRU output (water, oxygen, regolith bricks).",
+  },
+  {
+    category: "Renting",
+    q: "What's the difference between a short-term stay and a long-term lease?",
+    a: "Short-term stays are priced per sol (Mars day) and cover anything from a 1-sol overnight to a 30-sol stay. Long-term leases are priced monthly with 6 to 24 month terms.",
+  },
+  {
+    category: "Renting",
+    q: "Are habitat utilities included in my rent?",
+    a: "Marsillow listings show pressurization, water, and recycler-suite usage as included unless flagged otherwise. Power, comms, and rover-bay charging are usage-metered.",
+  },
+  {
+    category: "Financing",
+    q: "What is the inter-orbital prime rate?",
+    a: "It's Marsillow's published reference rate for terraform mortgages — currently 8.50% APR. Your actual quoted rate depends on parcel type, settlement score, and down payment.",
+  },
+  {
+    category: "Financing",
+    q: "Can I pay my mortgage in sols?",
+    a: "Yes. Marsillow auto-converts your monthly payment into a per-sol slice if you select sol-billing. Payments draft on Mars-local sol-end.",
+  },
+  {
+    category: "Rovers & tours",
+    q: "What's a rover tour?",
+    a: "A rover tour is a real-time guided walk of the parcel via Marsillow's tour-rover fleet. You drive the rover, your agent narrates, the seller pays for the energy.",
+  },
+  {
+    category: "Rovers & tours",
+    q: "How long does a rover tour take?",
+    a: "Most tours are 45 minutes to 2 hours. Bookings are slotted in 90-minute blocks. Cancel up to 6 hours before with no penalty.",
+  },
+  {
+    category: "Settlement basics",
+    q: "Are hab pads the same as bedrooms?",
+    a: "Hab pads are pressurized sleeping modules — the Mars equivalent of bedrooms. Recycler suites are the equivalent of bathrooms. Both terms appear on every Marsillow listing.",
+  },
+  {
+    category: "Settlement basics",
+    q: "What is the Settlement Score™?",
+    a: "Marsillow's Settlement Score™ blends water access, daylight, pressure, scenery, and terraform-readiness into a 0–100 livability rating. It's shown on every parcel detail page.",
+  },
+  {
+    category: "Account",
+    q: "How do I save a parcel?",
+    a: "Tap the heart icon on any listing card. Your saved parcels live under Saved in the top nav and persist between visits.",
+  },
+];
+
+const HELP_CATEGORIES = [
+  { id: "Buying", label: "Buying", desc: "Touring, offers, closing" },
+  { id: "Selling", label: "Selling", desc: "Listings, Marsestimate, fees" },
+  { id: "Renting", label: "Renting", desc: "Stays, leases, utilities" },
+  { id: "Financing", label: "Financing", desc: "Mortgages, sol-billing, rates" },
+  { id: "Rovers & tours", label: "Rovers & tours", desc: "Remote walkthroughs" },
+  { id: "Settlement basics", label: "Settlement basics", desc: "Hab pads, scores, glossary" },
+  { id: "Account", label: "Account", desc: "Saved parcels, alerts, profile" },
+];
+
+const SELL_TESTIMONIALS = [
+  {
+    name: "Errol M.",
+    listing: "Hellas rim hold",
+    quote:
+      "Listed Friday afternoon, three offers by Tuesday. Marsillow's agent matching put us with the right buyer on the first try.",
+    saleDays: 4,
+  },
+  {
+    name: "Vivian J.",
+    listing: "Endurance rim parcel",
+    quote:
+      "Marsestimate came in within 2% of the sale price. The pricing call was the easy part.",
+    saleDays: 47,
+  },
+  {
+    name: "Strider M.",
+    listing: "Eberswalde delta plot",
+    quote:
+      "I'm new to selling on Mars. My agent walked me through every covenant and the closing felt like a normal Earth deal.",
+    saleDays: 64,
+  },
+];
+
+function estimateParcelValue({ propertyType, acres, lat }) {
+  const basePerAcre = {
+    "Lakebed parcel": 480000,
+    "Mountain-base parcel": 290000,
+    "Equatorial plain": 153000,
+    "Volcanic highland": 140000,
+    "Lowland basin": 73000,
+    "Northern lowland": 53000,
+    "Canyon-rim parcel": 366000,
+    "Volcano aureole": 80000,
+  };
+  const base = (basePerAcre[propertyType] || 110000) * Math.max(acres, 0);
+  const latFactor = 1 - Math.min(Math.abs(lat) / 90, 1) * 0.18;
+  const center = base * latFactor;
+  return {
+    center: Math.round(center),
+    low: Math.round(center * 0.92),
+    high: Math.round(center * 1.08),
+  };
+}
+
 const roverRoutes = [
   {
     name: "Perseverance",
@@ -1021,7 +1338,17 @@ function BrandLogo({ size = 32 }) {
   );
 }
 
-function TopNav({ saved, onBrandClick, onBuy, onAgents, onSaved, onLoans }) {
+function TopNav({
+  saved,
+  onBrandClick,
+  onBuy,
+  onRent,
+  onSell,
+  onAgents,
+  onSaved,
+  onLoans,
+  onHelp,
+}) {
   return (
     <header className="topnav">
       <button className="icon-btn" aria-label="Menu">
@@ -1037,15 +1364,21 @@ function TopNav({ saved, onBrandClick, onBuy, onAgents, onSaved, onLoans }) {
         <button className="nav-link" onClick={onBuy}>
           Buy <ChevronDown size={14} />
         </button>
-        <button className="nav-link muted">Rent</button>
-        <button className="nav-link muted">Sell</button>
+        <button className="nav-link muted" onClick={onRent}>
+          Rent
+        </button>
+        <button className="nav-link muted" onClick={onSell}>
+          Sell
+        </button>
         <button className="nav-link muted" onClick={onLoans}>
           Mars Loans <ChevronDown size={14} />
         </button>
         <button className="nav-link muted" onClick={onAgents}>
           Agent finder
         </button>
-        <button className="nav-link muted">Help</button>
+        <button className="nav-link muted" onClick={onHelp}>
+          Help
+        </button>
       </nav>
       <div className="nav-right">
         <button className="nav-link muted" onClick={onSaved}>
@@ -2726,6 +3059,547 @@ function MarsLoansPage({ onBack, listings: ls, onSelectListing }) {
   );
 }
 
+function RentalCard({ rental, onSelect, onAgentClick }) {
+  const agent = rental.agentId ? agentsById[rental.agentId] : null;
+  return (
+    <article className="rental-card">
+      <button className="card-photo" onClick={() => onSelect(rental)}>
+        <img src={rental.image} alt={rental.region} />
+        <span className="card-ribbon">
+          {rental.kind === "short-term" ? "Short-term" : "Long-term"}
+        </span>
+      </button>
+      <div className="rental-body">
+        <div className="rental-price-row">
+          <strong className="rental-price">
+            {rental.kind === "short-term"
+              ? `${formatMoney(rental.pricePerSol)}/sol`
+              : `${formatMoney(rental.monthlyRent)}/mo`}
+          </strong>
+          <span className="rental-min">Min stay {rental.minStay}</span>
+        </div>
+        <div className="rental-name">{rental.name}</div>
+        <div className="rental-stats">
+          <b>{rental.habPads}</b> hab pads · <b>{rental.recyclerSuites}</b>{" "}
+          recyclers · sleeps <b>{rental.sleeps}</b>
+        </div>
+        <div className="rental-region">{rental.region}</div>
+        <div className="rental-amenities">
+          {rental.amenities.slice(0, 2).map((a) => (
+            <span key={a}>{a}</span>
+          ))}
+        </div>
+        {agent && (
+          <button
+            className="rental-agent"
+            onClick={() => onAgentClick(agent)}
+          >
+            <Avatar name={agent.name} size={28} />
+            <span>{agent.name}</span>
+          </button>
+        )}
+      </div>
+    </article>
+  );
+}
+
+function RentalDetail({ rental, onBack, onAgentClick }) {
+  const [modal, setModal] = useState(null);
+  const agent = rental.agentId ? agentsById[rental.agentId] : null;
+  return (
+    <main className="page">
+      <button className="back-link" onClick={onBack}>
+        <ArrowLeft size={16} /> All rentals
+      </button>
+      <div className="gallery gallery-one">
+        <div className="gallery-main">
+          <img src={rental.image} alt={rental.region} />
+          <span className="all-photos">
+            <Camera size={14} /> See all photos
+          </span>
+        </div>
+      </div>
+      <div className="detail-grid">
+        <div>
+          <div style={{ marginTop: 18 }}>
+            <span className="status-pill">
+              <i style={{ background: "#0a7d3a" }} />{" "}
+              {rental.kind === "short-term" ? "Available now" : "Leasing"}
+            </span>
+          </div>
+          <div className="detail-price">
+            {rental.kind === "short-term"
+              ? `${formatMoney(rental.pricePerSol)}/sol`
+              : `${formatMoney(rental.monthlyRent)}/mo`}
+          </div>
+          <div className="detail-stats">
+            <span>
+              <BedDouble size={20} /> <b>{rental.habPads}</b> hab pads
+            </span>
+            <span>
+              <Bath size={20} /> <b>{rental.recyclerSuites}</b> recyclers
+            </span>
+            <span>
+              <HomeIcon size={20} /> sleeps <b>{rental.sleeps}</b>
+            </span>
+          </div>
+          <div className="detail-address">
+            {rental.name} · {rental.region}
+          </div>
+          <section className="section">
+            <h2>About this rental</h2>
+            <p>{rental.description}</p>
+          </section>
+          <section className="section">
+            <h2>Amenities</h2>
+            <ul className="check-list">
+              {rental.amenities.map((a) => (
+                <li key={a}>{a}</li>
+              ))}
+            </ul>
+          </section>
+          <section className="section">
+            <h2>Stay rules</h2>
+            <ul className="check-list">
+              <li>Minimum stay {rental.minStay}</li>
+              <li>{rental.furnished ? "Furnished" : "Unfurnished"}</li>
+              <li>Cancel up to 6 hours before check-in (short-term)</li>
+              <li>Pressurization, water, and recyclers included</li>
+            </ul>
+          </section>
+        </div>
+        <aside className="detail-side">
+          <div className="cta-card">
+            <h3>{rental.kind === "short-term" ? "Book this stay" : "Inquire about this lease"}</h3>
+            <p>
+              {rental.kind === "short-term"
+                ? "Reserve your sols. Marsillow holds your booking until you confirm boarding."
+                : "Schedule a walkthrough or apply for the lease through your Marsillow agent."}
+            </p>
+            <div className="stack">
+              <button
+                className="btn-block primary"
+                onClick={() => setModal("tour")}
+              >
+                {rental.kind === "short-term" ? "Reserve dates" : "Apply for lease"}
+              </button>
+              <button
+                className="btn-block outline"
+                onClick={() => setModal("info")}
+              >
+                Ask a question
+              </button>
+            </div>
+          </div>
+          {agent && (
+            <button
+              className="agent-mini"
+              onClick={() => onAgentClick(agent)}
+            >
+              <Avatar name={agent.name} size={48} />
+              <span className="agent-mini-text">
+                <span className="agent-mini-kicker">Your host's agent</span>
+                <strong>{agent.name}</strong>
+                <span className="agent-mini-title">{agent.title}</span>
+              </span>
+            </button>
+          )}
+        </aside>
+      </div>
+      {modal && (
+        <ContactModal
+          listing={{
+            id: rental.id,
+            title: rental.name,
+            listingAgent: agent ? agent.name : "Marsillow rentals desk",
+          }}
+          kind={modal}
+          onClose={() => setModal(null)}
+        />
+      )}
+    </main>
+  );
+}
+
+function RentPage({ kind, setKind, region, setRegion, sort, setSort, onSelect, onAgentClick }) {
+  const regionOptions = useMemo(() => {
+    const s = new Set(rentals.map((r) => r.region));
+    return ["All regions", ...Array.from(s)];
+  }, []);
+  const filtered = useMemo(() => {
+    return rentals.filter((r) => {
+      if (kind !== "all" && r.kind !== kind) return false;
+      if (region !== "All regions" && r.region !== region) return false;
+      return true;
+    });
+  }, [kind, region]);
+  const sorted = useMemo(() => {
+    const arr = [...filtered];
+    const priceOf = (r) =>
+      r.kind === "short-term" ? r.pricePerSol : r.monthlyRent;
+    if (sort === "priceAsc") arr.sort((a, b) => priceOf(a) - priceOf(b));
+    else if (sort === "priceDesc") arr.sort((a, b) => priceOf(b) - priceOf(a));
+    else if (sort === "sleeps") arr.sort((a, b) => b.sleeps - a.sleeps);
+    return arr;
+  }, [filtered, sort]);
+
+  const counts = {
+    all: rentals.length,
+    "long-term": rentals.filter((r) => r.kind === "long-term").length,
+    "short-term": rentals.filter((r) => r.kind === "short-term").length,
+  };
+
+  return (
+    <main className="page">
+      <PageHeader
+        kicker="Rent on Mars"
+        title="Mars rentals & habitat leases"
+        subtitle="Long-term hab leases for engineers on rotation. Short-term stays for the curious."
+      >
+        <div className="agents-controls">
+          <div className="seg-control" role="tablist">
+            <button
+              className={kind === "all" ? "active" : ""}
+              onClick={() => setKind("all")}
+            >
+              All ({counts.all})
+            </button>
+            <button
+              className={kind === "long-term" ? "active" : ""}
+              onClick={() => setKind("long-term")}
+            >
+              Long-term ({counts["long-term"]})
+            </button>
+            <button
+              className={kind === "short-term" ? "active" : ""}
+              onClick={() => setKind("short-term")}
+            >
+              Short-term ({counts["short-term"]})
+            </button>
+          </div>
+          <select value={region} onChange={(e) => setRegion(e.target.value)}>
+            {regionOptions.map((r) => (
+              <option key={r}>{r}</option>
+            ))}
+          </select>
+          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+            <option value="picks">Sort: Marsillow Picks</option>
+            <option value="priceAsc">Sort: Price (Low to High)</option>
+            <option value="priceDesc">Sort: Price (High to Low)</option>
+            <option value="sleeps">Sort: Sleeps the most</option>
+          </select>
+        </div>
+      </PageHeader>
+      <div className="rentals-grid">
+        {sorted.length === 0 ? (
+          <div className="empty-state">
+            <strong>No rentals match.</strong>
+            <span>Try clearing the region or kind.</span>
+          </div>
+        ) : (
+          sorted.map((r) => (
+            <RentalCard
+              key={r.id}
+              rental={r}
+              onSelect={onSelect}
+              onAgentClick={onAgentClick}
+            />
+          ))
+        )}
+      </div>
+    </main>
+  );
+}
+
+function SellPage({ onAgentClick, onBack }) {
+  const [form, setForm] = useState({
+    region: "Jezero Crater, Mars",
+    propertyType: "Lakebed parcel",
+    acres: 38,
+    lat: 18.4,
+  });
+  const [estimate, setEstimate] = useState(null);
+  const update = (patch) => setForm({ ...form, ...patch });
+  const submit = (e) => {
+    e.preventDefault();
+    setEstimate(estimateParcelValue(form));
+  };
+  const matchedAgent = useMemo(() => {
+    const byType = agents.find((a) => a.specialties.includes(form.propertyType));
+    return byType || agents[0];
+  }, [form.propertyType]);
+
+  return (
+    <main className="page">
+      <PageHeader
+        kicker="Sell on Marsillow"
+        title="The fastest way to sell a Mars parcel"
+        subtitle="Get an instant Marsestimate®, match with a settlement specialist, and close in under 90 sols on average."
+      />
+      <section className="sell-stats">
+        <div>
+          <b>$284M</b>
+          <span>Sold on Marsillow in 2026</span>
+        </div>
+        <div>
+          <b>27 sols</b>
+          <span>Median time on market</span>
+        </div>
+        <div>
+          <b>97%</b>
+          <span>Of sellers match an agent in under 1 sol</span>
+        </div>
+        <div>
+          <b>2.4%</b>
+          <span>Closing fee. No listing fees.</span>
+        </div>
+      </section>
+
+      <section className="section">
+        <h2>How it works</h2>
+        <div className="how-grid">
+          <div>
+            <span className="step">1</span>
+            <strong>Tell us about your parcel</strong>
+            <p>Region, lat/lon, acreage, parcel type. Takes a minute.</p>
+          </div>
+          <div>
+            <span className="step">2</span>
+            <strong>Get an instant Marsestimate®</strong>
+            <p>We benchmark against rover-validated comps, water access, and pressure advantage.</p>
+          </div>
+          <div>
+            <span className="step">3</span>
+            <strong>Match with a Musk</strong>
+            <p>One of our 12 specialists takes the lead, prices the listing, and handles tours.</p>
+          </div>
+          <div>
+            <span className="step">4</span>
+            <strong>Close in 27 sols (median)</strong>
+            <p>Title moves on the Marsillow Title Ledger. You wire the down payment, we wire the rest.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section sell-form-section">
+        <h2>Get your free Marsestimate®</h2>
+        <form className="sell-form" onSubmit={submit}>
+          <label>
+            <span>Region</span>
+            <input
+              value={form.region}
+              onChange={(e) => update({ region: e.target.value })}
+              required
+            />
+          </label>
+          <label>
+            <span>Parcel type</span>
+            <select
+              value={form.propertyType}
+              onChange={(e) => update({ propertyType: e.target.value })}
+            >
+              {PARCEL_TYPES.map((t) => (
+                <option key={t}>{t}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            <span>Acreage</span>
+            <input
+              type="number"
+              min="1"
+              step="1"
+              value={form.acres}
+              onChange={(e) => update({ acres: Number(e.target.value) || 0 })}
+            />
+          </label>
+          <label>
+            <span>Latitude</span>
+            <input
+              type="number"
+              step="0.01"
+              value={form.lat}
+              onChange={(e) => update({ lat: Number(e.target.value) || 0 })}
+            />
+          </label>
+          <button className="btn-primary" type="submit">
+            Get Marsestimate®
+          </button>
+        </form>
+        {estimate && (
+          <div className="estimate-result">
+            <div>
+              <span className="page-kicker">Your Marsestimate®</span>
+              <strong>{formatMoney(estimate.center)}</strong>
+              <span className="estimate-range">
+                Range: {formatMoney(estimate.low)} –{" "}
+                {formatMoney(estimate.high)}
+              </span>
+            </div>
+            <div className="match-card">
+              <Avatar name={matchedAgent.name} size={48} />
+              <div>
+                <span className="page-kicker">Suggested agent</span>
+                <strong>{matchedAgent.name}</strong>
+                <span>{matchedAgent.title}</span>
+              </div>
+              <button
+                className="btn-block primary"
+                onClick={() => onAgentClick(matchedAgent)}
+              >
+                View profile
+              </button>
+            </div>
+          </div>
+        )}
+      </section>
+
+      <section className="section">
+        <h2>Why sellers pick Marsillow</h2>
+        <div className="why-grid">
+          <div>
+            <ShieldCheck size={20} />
+            <strong>Pricing you can trust</strong>
+            <p>Marsestimate® uses rover-validated comps and is updated every cycle.</p>
+          </div>
+          <div>
+            <Sparkles size={20} />
+            <strong>Twelve specialist Musks</strong>
+            <p>Match with an agent who knows your hemisphere, your parcel type, and your buyer pool.</p>
+          </div>
+          <div>
+            <Globe2 size={20} />
+            <strong>Off-world title</strong>
+            <p>Every Marsillow sale closes onto the Marsillow Title Ledger, mirrored at three orbital relays.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <h2>Recent sellers say</h2>
+        <div className="testimonial-grid">
+          {SELL_TESTIMONIALS.map((t) => (
+            <blockquote key={t.name}>
+              <p>"{t.quote}"</p>
+              <footer>
+                <strong>{t.name}</strong>
+                <span>
+                  {t.listing} · sold in {t.saleDays} sols
+                </span>
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function HelpPage({ query, setQuery, category, setCategory }) {
+  const [openId, setOpenId] = useState(null);
+  const matches = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    return HELP_FAQ.filter((f) => {
+      if (category && f.category !== category) return false;
+      if (!needle) return true;
+      return (f.q + " " + f.a + " " + f.category).toLowerCase().includes(needle);
+    });
+  }, [query, category]);
+
+  return (
+    <main className="page">
+      <PageHeader
+        kicker="Marsillow Help"
+        title="How can we help?"
+        subtitle="Search our knowledge base or pick a category."
+      >
+        <div className="help-search">
+          <Search size={18} />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder='Try "rover tour" or "Marsestimate"'
+          />
+        </div>
+      </PageHeader>
+
+      <section className="help-categories">
+        {HELP_CATEGORIES.map((c) => (
+          <button
+            key={c.id}
+            className={`help-category ${category === c.id ? "active" : ""}`}
+            onClick={() => setCategory(category === c.id ? null : c.id)}
+          >
+            <strong>{c.label}</strong>
+            <span>{c.desc}</span>
+          </button>
+        ))}
+      </section>
+
+      <section className="section">
+        <h2>
+          {category ? `${category} questions` : "Most asked"}{" "}
+          <span style={{ color: "var(--ink-muted)", fontWeight: 500 }}>
+            ({matches.length})
+          </span>
+        </h2>
+        <div className="faq-list">
+          {matches.length === 0 ? (
+            <div className="empty-state">
+              <strong>No articles matched.</strong>
+              <span>Try clearing the category or searching for a different term.</span>
+            </div>
+          ) : (
+            matches.map((f, i) => {
+              const id = `${f.category}-${i}`;
+              const open = openId === id;
+              return (
+                <div key={id} className={`faq-item ${open ? "open" : ""}`}>
+                  <button
+                    className="faq-q"
+                    onClick={() => setOpenId(open ? null : id)}
+                    aria-expanded={open}
+                  >
+                    <span>{f.q}</span>
+                    <ChevronDown size={16} />
+                  </button>
+                  {open && (
+                    <div className="faq-a">
+                      <span className="faq-cat">{f.category}</span>
+                      <p>{f.a}</p>
+                    </div>
+                  )}
+                </div>
+              );
+            })
+          )}
+        </div>
+      </section>
+
+      <section className="section help-contact">
+        <h2>Still need help?</h2>
+        <div className="contact-grid">
+          <div>
+            <strong>Live chat</strong>
+            <p>Marsillow concierge · Earth and Mars hours</p>
+            <button className="btn-outline">Start chat</button>
+          </div>
+          <div>
+            <strong>Phone</strong>
+            <p>+1 (555) 010-MARS · Average wait 1.4 minutes</p>
+            <button className="btn-outline">Call us</button>
+          </div>
+          <div>
+            <strong>Email</strong>
+            <p>help@marsillow.com · Replies within 1 sol</p>
+            <button className="btn-outline">Send email</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 function App() {
   const [query, setQuery] = useState("");
   const [view, setView] = useState("map");
@@ -2738,6 +3612,11 @@ function App() {
   const [agentQuery, setAgentQuery] = useState("");
   const [agentSort, setAgentSort] = useState("rating");
   const [agentRegion, setAgentRegion] = useState("All regions");
+  const [rentKind, setRentKind] = useState("all");
+  const [rentRegion, setRentRegion] = useState("All regions");
+  const [rentSort, setRentSort] = useState("picks");
+  const [helpQuery, setHelpQuery] = useState("");
+  const [helpCategory, setHelpCategory] = useState(null);
 
   const navigate = (next) => {
     window.scrollTo(0, 0);
@@ -2823,6 +3702,10 @@ function App() {
   const goDetail = (listing) => navigate({ kind: "detail", listing });
   const goSaved = () => navigate({ kind: "saved" });
   const goLoans = () => navigate({ kind: "loans" });
+  const goRent = () => navigate({ kind: "rent" });
+  const goRental = (rental) => navigate({ kind: "rental", rental });
+  const goSell = () => navigate({ kind: "sell" });
+  const goHelp = () => navigate({ kind: "help" });
 
   const renderPage = () => {
     switch (page.kind) {
@@ -2875,6 +3758,38 @@ function App() {
             onSelectListing={goDetail}
           />
         );
+      case "rent":
+        return (
+          <RentPage
+            kind={rentKind}
+            setKind={setRentKind}
+            region={rentRegion}
+            setRegion={setRentRegion}
+            sort={rentSort}
+            setSort={setRentSort}
+            onSelect={goRental}
+            onAgentClick={goAgent}
+          />
+        );
+      case "rental":
+        return (
+          <RentalDetail
+            rental={page.rental}
+            onBack={goRent}
+            onAgentClick={goAgent}
+          />
+        );
+      case "sell":
+        return <SellPage onAgentClick={goAgent} onBack={goSearch} />;
+      case "help":
+        return (
+          <HelpPage
+            query={helpQuery}
+            setQuery={setHelpQuery}
+            category={helpCategory}
+            setCategory={setHelpCategory}
+          />
+        );
       default:
         return (
           <>
@@ -2925,6 +3840,9 @@ function App() {
         onSaved={goSaved}
         onLoans={goLoans}
         onBuy={goSearch}
+        onRent={goRent}
+        onSell={goSell}
+        onHelp={goHelp}
       />
       {renderPage()}
     </>
