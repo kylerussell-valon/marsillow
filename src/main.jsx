@@ -2542,7 +2542,7 @@ function DetailSidebar({ listing, onAgentClick }) {
           onClick={() => onAgentClick(agent)}
           aria-label={`View profile for ${agent.name}`}
         >
-          <Avatar name={agent.name} size={48} />
+          <Avatar name={agent.name} src={`/agents/${agent.id}.png`} size={48} />
           <span className="agent-mini-text">
             <span className="agent-mini-kicker">Your agent</span>
             <strong>{agent.name}</strong>
@@ -2839,7 +2839,20 @@ const DEFAULT_FILTERS = {
   minRecyclers: 0,
 };
 
-function Avatar({ name, size = 48 }) {
+function Avatar({ name, size = 48, src }) {
+  if (src) {
+    return (
+      <img
+        className="avatar avatar-photo"
+        src={src}
+        alt={name}
+        width={size}
+        height={size}
+        style={{ width: size, height: size }}
+        loading="lazy"
+      />
+    );
+  }
   const initials = name
     .split(/\s+/)
     .map((p) => p[0])
@@ -2904,7 +2917,7 @@ function PageHeader({ kicker, title, subtitle, children }) {
 function AgentCard({ agent, listingCount, onSelect }) {
   return (
     <button className="agent-card" onClick={() => onSelect(agent)}>
-      <Avatar name={agent.name} size={56} />
+      <Avatar name={agent.name} src={`/agents/${agent.id}.png`} size={56} />
       <div className="agent-card-body">
         <strong>{agent.name}</strong>
         <span className="agent-card-title">{agent.title}</span>
@@ -3013,7 +3026,7 @@ function AgentDetailPage({ agent, savedSet, onBackToAgents, onSelectListing, onS
         <ArrowLeft size={16} /> All agents
       </button>
       <header className="agent-hero">
-        <Avatar name={agent.name} size={120} />
+        <Avatar name={agent.name} src={`/agents/${agent.id}.png`} size={120} />
         <div>
           <span className="page-kicker">Marsillow agent</span>
           <h1>{agent.name}</h1>
@@ -3309,7 +3322,7 @@ function RentalCard({ rental, onSelect, onAgentClick }) {
             className="rental-agent"
             onClick={() => onAgentClick(agent)}
           >
-            <Avatar name={agent.name} size={28} />
+            <Avatar name={agent.name} src={`/agents/${agent.id}.png`} size={28} />
             <span>{agent.name}</span>
           </button>
         )}
@@ -3411,7 +3424,7 @@ function RentalDetail({ rental, onBack, onAgentClick }) {
               className="agent-mini"
               onClick={() => onAgentClick(agent)}
             >
-              <Avatar name={agent.name} size={48} />
+              <Avatar name={agent.name} src={`/agents/${agent.id}.png`} size={48} />
               <span className="agent-mini-text">
                 <span className="agent-mini-kicker">Your host's agent</span>
                 <strong>{agent.name}</strong>
@@ -3652,7 +3665,7 @@ function SellPage({ onAgentClick, onBack }) {
               </span>
             </div>
             <div className="match-card">
-              <Avatar name={matchedAgent.name} size={48} />
+              <Avatar name={matchedAgent.name} src={`/agents/${matchedAgent.id}.png`} size={48} />
               <div>
                 <span className="page-kicker">Suggested agent</span>
                 <strong>{matchedAgent.name}</strong>

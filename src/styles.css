@@ -523,6 +523,11 @@ a {
   text-transform: uppercase;
 }
 
+.avatar-photo {
+  object-fit: cover;
+  background: var(--surface-tinted);
+}
+
 .stars {
   display: inline-flex;
   align-items: center;
