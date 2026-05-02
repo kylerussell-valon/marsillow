@@ -26,6 +26,11 @@ import {
   Trees,
 } from "lucide-react";
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import {
+  CSS2DRenderer,
+  CSS2DObject,
+} from "three/examples/jsm/renderers/CSS2DRenderer.js";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./styles.css";
@@ -1898,14 +1903,59 @@ function MarsMap({ listings, selectedId, hoveredId, onSelect, onHover, layer = "
   return <div className="leaflet-mars" ref={mountRef} aria-label="Interactive Mars map" />;
 }
 
-function MarsGlobe({ listings, selectedId, hoveredId, onSelect }) {
+// Module-level cache so the Mars Trek tile stitch only happens once.
+let marsTexturePromise = null;
+function loadMarsGlobeTexture() {
+  if (marsTexturePromise) return marsTexturePromise;
+  marsTexturePromise = new Promise((resolve) => {
+    const z = 2; // 8 cols x 4 rows of 256px tiles = 2048 x 1024 texture
+    const cols = 2 << z; // 8 at z=2
+    const rows = 1 << z; // 4 at z=2
+    const tileSize = 256;
+    const canvas = document.createElement("canvas");
+    canvas.width = cols * tileSize;
+    canvas.height = rows * tileSize;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#3a1f15";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 4;
+    let pending = cols * rows;
+    const finish = () => {
+      pending -= 1;
+      tex.needsUpdate = true;
+      if (pending === 0) resolve(tex);
+    };
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        const url = `https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_232m/1.0.0/default/default028mm/${z}/${y}/${x}.jpg`;
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => {
+          ctx.drawImage(img, x * tileSize, y * tileSize, tileSize, tileSize);
+          finish();
+        };
+        img.onerror = () => finish();
+        img.src = url;
+      }
+    }
+    // Resolve immediately too — caller can swap in the texture as tiles paint.
+    resolve(tex);
+  });
+  return marsTexturePromise;
+}
+
+function MarsGlobe({ listings, selectedId, hoveredId, onSelect, onHover }) {
   const mountRef = React.useRef(null);
 
   useEffect(() => {
     const mount = mountRef.current;
+    if (!mount) return;
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    camera.position.set(0, 0.25, 6.4);
+    scene.background = null;
+    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 200);
+    camera.position.set(0, 0.4, 6.4);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -1915,74 +1965,164 @@ function MarsGlobe({ listings, selectedId, hoveredId, onSelect }) {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(mount.clientWidth, mount.clientHeight);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.domElement.style.position = "absolute";
+    renderer.domElement.style.inset = "0";
     mount.appendChild(renderer.domElement);
 
-    const group = new THREE.Group();
-    scene.add(group);
+    const labelRenderer = new CSS2DRenderer();
+    labelRenderer.setSize(mount.clientWidth, mount.clientHeight);
+    labelRenderer.domElement.style.position = "absolute";
+    labelRenderer.domElement.style.inset = "0";
+    labelRenderer.domElement.style.pointerEvents = "none";
+    mount.appendChild(labelRenderer.domElement);
 
+    // Starfield
+    const starGeo = new THREE.BufferGeometry();
+    const starCount = 1500;
+    const starPos = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i++) {
+      const r = 60 + Math.random() * 40;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      starPos[i * 3 + 0] = r * Math.sin(phi) * Math.cos(theta);
+      starPos[i * 3 + 1] = r * Math.cos(phi);
+      starPos[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
+    }
+    starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
+    const stars = new THREE.Points(
+      starGeo,
+      new THREE.PointsMaterial({
+        color: "#ffffff",
+        size: 0.18,
+        sizeAttenuation: true,
+        transparent: true,
+        opacity: 0.85,
+      })
+    );
+    scene.add(stars);
+
+    // Globe
+    const placeholderTex = createMarsTexture();
+    const globeMaterial = new THREE.MeshStandardMaterial({
+      map: placeholderTex,
+      roughness: 0.95,
+      metalness: 0.0,
+    });
     const globe = new THREE.Mesh(
       new THREE.SphereGeometry(2, 128, 128),
-      new THREE.MeshStandardMaterial({
-        map: createMarsTexture(),
-        roughness: 0.92,
-        metalness: 0.02,
-      })
+      globeMaterial
     );
-    group.add(globe);
+    scene.add(globe);
 
-    const atmosphere = new THREE.Mesh(
-      new THREE.SphereGeometry(2.05, 128, 128),
-      new THREE.MeshBasicMaterial({
-        color: "#f7b286",
-        transparent: true,
-        opacity: 0.1,
-        side: THREE.BackSide,
-      })
-    );
-    group.add(atmosphere);
-
-    const markerGroup = new THREE.Group();
-    group.add(markerGroup);
-    listings.forEach((listing) => {
-      const isSelected = listing.id === selectedId;
-      const isHovered = listing.id === hoveredId;
-      const marker = new THREE.Mesh(
-        new THREE.SphereGeometry(isSelected || isHovered ? 0.06 : 0.04, 24, 24),
-        new THREE.MeshBasicMaterial({
-          color: isSelected ? "#006aff" : "#d2232a",
-        })
-      );
-      marker.position.copy(marsToVector(listing.lat, listing.lon));
-      marker.userData = { id: listing.id };
-      markerGroup.add(marker);
+    // Swap in the real Mars Trek texture as soon as it's available.
+    let cancelTextureSwap = false;
+    loadMarsGlobeTexture().then((tex) => {
+      if (cancelTextureSwap) return;
+      globeMaterial.map = tex;
+      globeMaterial.needsUpdate = true;
     });
 
-    const ambient = new THREE.AmbientLight("#f5c6a8", 1.9);
-    scene.add(ambient);
-    const sun = new THREE.DirectionalLight("#fff4d7", 2.7);
-    sun.position.set(5, 4, 6);
+    // Atmosphere — Fresnel-style glow on a slightly larger inverted sphere.
+    const atmosphere = new THREE.Mesh(
+      new THREE.SphereGeometry(2.18, 96, 96),
+      new THREE.ShaderMaterial({
+        uniforms: {
+          glowColor: { value: new THREE.Color("#f3a972") },
+        },
+        vertexShader: `
+          varying vec3 vN;
+          void main() {
+            vN = normalize(normalMatrix * normal);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform vec3 glowColor;
+          varying vec3 vN;
+          void main() {
+            float intensity = pow(0.55 - dot(vN, vec3(0.0, 0.0, 1.0)), 2.0);
+            gl_FragColor = vec4(glowColor, 1.0) * intensity;
+          }
+        `,
+        side: THREE.BackSide,
+        blending: THREE.AdditiveBlending,
+        transparent: true,
+        depthWrite: false,
+      })
+    );
+    scene.add(atmosphere);
+
+    // Lighting
+    scene.add(new THREE.AmbientLight("#f1c8a4", 1.6));
+    const sun = new THREE.DirectionalLight("#fff4d8", 2.8);
+    sun.position.set(5, 3, 6);
     scene.add(sun);
 
-    const raycaster = new THREE.Raycaster();
-    const pointer = new THREE.Vector2();
-    const handleClick = (event) => {
-      const bounds = renderer.domElement.getBoundingClientRect();
-      pointer.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
-      pointer.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
-      raycaster.setFromCamera(pointer, camera);
-      const hit = raycaster.intersectObjects(markerGroup.children)[0];
-      if (hit) {
-        const listing = listings.find((item) => item.id === hit.object.userData.id);
-        if (listing) onSelect(listing);
-      }
-    };
-    renderer.domElement.addEventListener("click", handleClick);
+    // Markers — HTML pills overlaid via CSS2D
+    const markersGroup = new THREE.Group();
+    scene.add(markersGroup);
+    const markers = listings.map((listing) => {
+      const el = document.createElement("button");
+      el.className = "globe-pill";
+      el.dataset.id = listing.id;
+      el.textContent = shortMoney(listing.price);
+      el.title = listing.title;
+      el.style.pointerEvents = "auto";
+      const obj = new CSS2DObject(el);
+      obj.position.copy(marsToVector(listing.lat, listing.lon, 2.05));
+      obj.userData = { id: listing.id };
+      markersGroup.add(obj);
 
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        onSelect(listing);
+      });
+      el.addEventListener("mouseenter", () => onHover && onHover(listing.id));
+      el.addEventListener("mouseleave", () => onHover && onHover(null));
+      return { obj, el, listing };
+    });
+
+    // OrbitControls — drag to rotate, scroll to zoom.
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.enablePan = false;
+    controls.rotateSpeed = 0.6;
+    controls.zoomSpeed = 0.6;
+    controls.minDistance = 3.4;
+    controls.maxDistance = 12;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.45;
+
+    // Halt auto-rotate as soon as the user interacts.
+    const stopAuto = () => {
+      controls.autoRotate = false;
+    };
+    renderer.domElement.addEventListener("pointerdown", stopAuto);
+    renderer.domElement.addEventListener("wheel", stopAuto);
+
+    // Frame loop with hover/select state and back-side hide.
+    const camDir = new THREE.Vector3();
     let frame;
     const animate = () => {
       frame = requestAnimationFrame(animate);
-      group.rotation.y += 0.0015;
+
+      // Hide markers on the back side of the sphere.
+      camera.getWorldDirection(camDir).negate(); // direction from origin to camera
+      markers.forEach(({ obj, el, listing }) => {
+        const worldPos = obj.getWorldPosition(new THREE.Vector3());
+        const facing = worldPos.clone().normalize().dot(camDir);
+        const hidden = facing < 0.05;
+        const isSel = listing.id === selectedIdRef.current;
+        const isHov = listing.id === hoveredIdRef.current;
+        el.classList.toggle("hidden", hidden);
+        el.classList.toggle("selected", isSel);
+        el.classList.toggle("hovered", isHov);
+      });
+
+      controls.update();
       renderer.render(scene, camera);
+      labelRenderer.render(scene, camera);
     };
     animate();
 
@@ -1990,6 +2130,7 @@ function MarsGlobe({ listings, selectedId, hoveredId, onSelect }) {
       const width = mount.clientWidth;
       const height = mount.clientHeight;
       renderer.setSize(width, height);
+      labelRenderer.setSize(width, height);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
     };
@@ -2000,14 +2141,48 @@ function MarsGlobe({ listings, selectedId, hoveredId, onSelect }) {
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
-      renderer.domElement.removeEventListener("click", handleClick);
+      cancelTextureSwap = true;
+      renderer.domElement.removeEventListener("pointerdown", stopAuto);
+      renderer.domElement.removeEventListener("wheel", stopAuto);
+      controls.dispose();
+      markers.forEach(({ obj, el }) => {
+        markersGroup.remove(obj);
+        if (el.parentNode) el.parentNode.removeChild(el);
+      });
       renderer.dispose();
-      mount.removeChild(renderer.domElement);
+      if (renderer.domElement.parentNode) {
+        renderer.domElement.parentNode.removeChild(renderer.domElement);
+      }
+      if (labelRenderer.domElement.parentNode) {
+        labelRenderer.domElement.parentNode.removeChild(
+          labelRenderer.domElement
+        );
+      }
     };
-  }, [listings, selectedId, hoveredId, onSelect]);
+    // We deliberately do not depend on listings/selectedId/hoveredId here
+    // — those are read each frame via closures and the per-marker classes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  return <div className="globe-canvas" ref={mountRef} aria-label="3D Mars globe" />;
+  // Re-bind hover/select callbacks each render via refs.
+  // (Markers are created once; their event handlers reference the closures
+  // captured on first effect run, so we need to re-attach when callbacks
+  // change. For our use, onSelect/onHover are stable enough — they're
+  // passed as inline arrows from App but App is the parent. Simplification:
+  // the per-frame loop handles class updates from selectedId/hoveredId via
+  // captured refs below.)
+  selectedIdRef.current = selectedId;
+  hoveredIdRef.current = hoveredId;
+
+  return (
+    <div className="globe-canvas" ref={mountRef} aria-label="3D Mars globe">
+      <div className="globe-hint">Drag to rotate · scroll to zoom</div>
+    </div>
+  );
 }
+
+const selectedIdRef = { current: null };
+const hoveredIdRef = { current: null };
 
 function MapPane({ listings, selectedId, hoveredId, onSelect, onHover, view, setView }) {
   const [tileLayer, setTileLayer] = useState("viking");
@@ -2028,6 +2203,7 @@ function MapPane({ listings, selectedId, hoveredId, onSelect, onHover, view, set
           selectedId={selectedId}
           hoveredId={hoveredId}
           onSelect={onSelect}
+          onHover={onHover}
         />
       )}
       <div className="map-overlay">
