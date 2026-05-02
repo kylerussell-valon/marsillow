@@ -1704,8 +1704,17 @@ function ParcelPopover({ filters, setField, onClose }) {
 }
 
 function ListingCard({ listing, hovered, saved, onSelect, onHover, onSave }) {
+  const ref = React.useRef(null);
+  const wasHovered = React.useRef(false);
+  useEffect(() => {
+    if (hovered && !wasHovered.current && ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+    wasHovered.current = hovered;
+  }, [hovered]);
   return (
     <article
+      ref={ref}
       className={`listing-card ${hovered ? "hovered" : ""}`}
       onMouseEnter={() => onHover(listing.id)}
       onMouseLeave={() => onHover(null)}
@@ -1948,6 +1957,9 @@ function loadMarsGlobeTexture() {
 
 function MarsGlobe({ listings, selectedId, hoveredId, onSelect, onHover }) {
   const mountRef = React.useRef(null);
+  const cameraRef = React.useRef(null);
+  const controlsRef = React.useRef(null);
+  const flyTargetRef = React.useRef(null);
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -2082,8 +2094,11 @@ function MarsGlobe({ listings, selectedId, hoveredId, onSelect, onHover }) {
       return { obj, el, listing };
     });
 
+    cameraRef.current = camera;
+
     // OrbitControls — drag to rotate, scroll to zoom.
     const controls = new OrbitControls(camera, renderer.domElement);
+    controlsRef.current = controls;
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
     controls.enablePan = false;
@@ -2101,11 +2116,29 @@ function MarsGlobe({ listings, selectedId, hoveredId, onSelect, onHover }) {
     renderer.domElement.addEventListener("pointerdown", stopAuto);
     renderer.domElement.addEventListener("wheel", stopAuto);
 
-    // Frame loop with hover/select state and back-side hide.
+    // Frame loop with hover/select state, back-side hide, and fly-to lerp.
     const camDir = new THREE.Vector3();
     let frame;
     const animate = () => {
       frame = requestAnimationFrame(animate);
+
+      // Fly-to-listing: lerp camera position toward the requested target,
+      // keeping the camera oriented at origin. OrbitControls is paused while
+      // we steer the camera; we resync when we arrive.
+      if (flyTargetRef.current) {
+        controls.enabled = false;
+        controls.autoRotate = false;
+        camera.position.lerp(flyTargetRef.current, 0.12);
+        camera.lookAt(0, 0, 0);
+        if (camera.position.distanceTo(flyTargetRef.current) < 0.02) {
+          camera.position.copy(flyTargetRef.current);
+          flyTargetRef.current = null;
+          controls.enabled = true;
+          controls.update();
+        }
+      } else {
+        controls.update();
+      }
 
       // Hide markers on the back side of the sphere.
       camera.getWorldDirection(camDir).negate(); // direction from origin to camera
@@ -2120,7 +2153,6 @@ function MarsGlobe({ listings, selectedId, hoveredId, onSelect, onHover }) {
         el.classList.toggle("hovered", isHov);
       });
 
-      controls.update();
       renderer.render(scene, camera);
       labelRenderer.render(scene, camera);
     };
@@ -2165,14 +2197,21 @@ function MarsGlobe({ listings, selectedId, hoveredId, onSelect, onHover }) {
   }, []);
 
   // Re-bind hover/select callbacks each render via refs.
-  // (Markers are created once; their event handlers reference the closures
-  // captured on first effect run, so we need to re-attach when callbacks
-  // change. For our use, onSelect/onHover are stable enough — they're
-  // passed as inline arrows from App but App is the parent. Simplification:
-  // the per-frame loop handles class updates from selectedId/hoveredId via
-  // captured refs below.)
   selectedIdRef.current = selectedId;
   hoveredIdRef.current = hoveredId;
+
+  // When the listings hover changes from outside (e.g. user hovers a card
+  // in the results pane), nudge the globe so that listing's marker faces
+  // the camera. The lerp lives in the animate loop above.
+  useEffect(() => {
+    const camera = cameraRef.current;
+    if (!camera || !hoveredId) return;
+    const listing = listings.find((l) => l.id === hoveredId);
+    if (!listing) return;
+    const distance = camera.position.length();
+    const dir = marsToVector(listing.lat, listing.lon, 1).normalize();
+    flyTargetRef.current = dir.multiplyScalar(distance);
+  }, [hoveredId, listings]);
 
   return (
     <div className="globe-canvas" ref={mountRef} aria-label="3D Mars globe">
