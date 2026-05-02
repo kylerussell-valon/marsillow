@@ -49,6 +49,7 @@ const listings = [
     score: 96,
     rover: "Perseverance",
     listingAgent: "PERSEVERANCE PROPERTIES",
+    agentId: "elon-musk",
     image:
       "https://images-assets.nasa.gov/image/PIA24485/PIA24485~small.jpg",
     images: [
@@ -122,6 +123,7 @@ const listings = [
     score: 91,
     rover: "Curiosity",
     listingAgent: "BRADBURY GROUP REALTY",
+    agentId: "tosca-musk",
     image:
       "https://images-assets.nasa.gov/image/PIA16104/PIA16104~medium.jpg",
     images: [
@@ -193,6 +195,7 @@ const listings = [
     score: 87,
     rover: "Opportunity",
     listingAgent: "OPPORTUNITY HOLDINGS",
+    agentId: "vivian-musk",
     image:
       "https://images-assets.nasa.gov/image/PIA05273/PIA05273~small.jpg",
     images: [
@@ -263,6 +266,7 @@ const listings = [
     score: 82,
     rover: "Spirit",
     listingAgent: "SPIRIT HILLS REALTY",
+    agentId: "octavia-musk",
     image:
       "https://images-assets.nasa.gov/image/PIA06960/PIA06960~medium.jpg",
     images: [
@@ -335,6 +339,7 @@ const listings = [
     score: 78,
     rover: "InSight lander",
     listingAgent: "INSIGHT LAND TRUST",
+    agentId: "kimbal-musk",
     image:
       "https://images-assets.nasa.gov/image/PIA22232/PIA22232~medium.jpg",
     images: [
@@ -407,6 +412,7 @@ const listings = [
     score: 84,
     rover: "Zhurong / Viking 2",
     listingAgent: "NORTHERN BASIN LLC",
+    agentId: "maye-musk",
     image:
       "https://images-assets.nasa.gov/image/PIA17633/PIA17633~medium.jpg",
     images: [
@@ -478,6 +484,7 @@ const listings = [
     score: 90,
     rover: "Orbital reconnaissance",
     listingAgent: "GRAND CANYON ESTATES",
+    agentId: "justine-musk",
     image:
       "https://images-assets.nasa.gov/image/PIA00407/PIA00407~medium.jpg",
     images: [
@@ -551,6 +558,7 @@ const listings = [
     score: 75,
     rover: "Orbital reconnaissance",
     listingAgent: "AUREOLE HOLDINGS GROUP",
+    agentId: "elon-musk",
     image:
       "https://images-assets.nasa.gov/image/PIA22581/PIA22581~medium.jpg",
     images: [
@@ -604,6 +612,251 @@ const listings = [
     ],
   },
 ];
+
+const agents = [
+  {
+    id: "elon-musk",
+    name: "Elon Musk",
+    title: "Founding broker · Tharsis & Olympus",
+    region: "Tharsis & Olympus",
+    specialties: ["Volcano aureole", "Tharsis", "Showcase parcels"],
+    yearsExperience: 25,
+    transactions: 127,
+    rating: 5.0,
+    reviewCount: 412,
+    phone: "+1 (555) 010-1969",
+    email: "elon@marsillow.com",
+    motto: "Make Mars multiplanetary. And mortgageable.",
+    bio: "Marsillow's founding broker. Closed the first Olympus aureole parcel in 2027 and has personally walked every Tharsis-bulge listing on the market. Best fit for buyers who want the tallest mailing address in the solar system.",
+    soldRecent: [
+      { region: "Pavonis Mons saddle", price: 11400000, sols: 84 },
+      { region: "Ascraeus Mons rim", price: 9800000, sols: 162 },
+      { region: "Olympus southern aureole", price: 6450000, sols: 305 },
+    ],
+    badges: ["Marsillow Founding Broker", "Top 1% volume"],
+  },
+  {
+    id: "errol-musk",
+    name: "Errol Musk",
+    title: "Senior land partner · Crater estates",
+    region: "Southern crater belt",
+    specialties: ["Crater estates", "Hard-asset diligence"],
+    yearsExperience: 41,
+    transactions: 38,
+    rating: 4.7,
+    reviewCount: 56,
+    phone: "+1 (555) 010-2719",
+    email: "errol@marsillow.com",
+    motto: "Buy the dirt, not the dream.",
+    bio: "Veteran land broker. Knows every easement, mineral right, and survey peg in the southern highlands. Talks plainly about title quirks. Not on social media.",
+    soldRecent: [
+      { region: "Hellas rim hold", price: 5200000, sols: 220 },
+      { region: "Argyre south parcel", price: 4100000, sols: 410 },
+    ],
+    badges: ["Title-clean specialist"],
+  },
+  {
+    id: "maye-musk",
+    name: "Maye Musk",
+    title: "Polar broker · Northern lowlands",
+    region: "Utopia & Vastitas Borealis",
+    specialties: ["Ice rights", "Northern lowland", "Greenhouse-ready"],
+    yearsExperience: 36,
+    transactions: 64,
+    rating: 4.9,
+    reviewCount: 188,
+    phone: "+1 (555) 010-3344",
+    email: "maye@marsillow.com",
+    motto: "Beautiful land has good bones. So does Mars.",
+    bio: "Polar specialist. Brings a calm, fashion-forward sensibility to ice-rights deals. Has placed more greenhouse-ready acreage than any other agent on the planet.",
+    soldRecent: [
+      { region: "Utopia north tract", price: 9300000, sols: 71 },
+      { region: "Vastitas Borealis 80-acre", price: 7800000, sols: 154 },
+      { region: "Polar approach reserve", price: 6200000, sols: 233 },
+    ],
+    badges: ["Top closer · Northern hemisphere"],
+  },
+  {
+    id: "kimbal-musk",
+    name: "Kimbal Musk",
+    title: "Agricultural broker · Greenhouse basins",
+    region: "Elysium & lowland basins",
+    specialties: ["Lowland basin", "Greenhouse zoning", "ISRU water"],
+    yearsExperience: 18,
+    transactions: 49,
+    rating: 4.8,
+    reviewCount: 142,
+    phone: "+1 (555) 010-4711",
+    email: "kimbal@marsillow.com",
+    motto: "If we can grow it on Mars, we can sell it on Mars.",
+    bio: "Cuts deals around water rights, soil amendment, and pre-permitted greenhouse footprints. Buyers planning to feed a settlement come to him first.",
+    soldRecent: [
+      { region: "Elysium ag corridor", price: 7100000, sols: 96 },
+      { region: "Cerberus Fossae ag plot", price: 5450000, sols: 211 },
+    ],
+    badges: ["Certified greenhouse zoning"],
+  },
+  {
+    id: "tosca-musk",
+    name: "Tosca Musk",
+    title: "Lifestyle broker · Mountain & summit",
+    region: "Gale, Aeolis Mons, summit views",
+    specialties: ["Mountain-base parcel", "Layered terrain", "Cinematic views"],
+    yearsExperience: 22,
+    transactions: 71,
+    rating: 4.9,
+    reviewCount: 267,
+    phone: "+1 (555) 010-5560",
+    email: "tosca@marsillow.com",
+    motto: "Every parcel deserves a story (and a closing).",
+    bio: "Lifestyle and view-driven sales. Pioneered the cliff-side hab format. Offers staged sunrise viewings via remote rover.",
+    soldRecent: [
+      { region: "Mount Sharp upper bench", price: 13900000, sols: 53 },
+      { region: "Aeolis ridge plot", price: 11200000, sols: 121 },
+      { region: "Gale north terrace", price: 9800000, sols: 178 },
+    ],
+    badges: ["Cinematic-view specialist"],
+  },
+  {
+    id: "justine-musk",
+    name: "Justine Musk",
+    title: "Canyon-rim specialist",
+    region: "Valles Marineris",
+    specialties: ["Canyon-rim parcel", "Viewshed", "Limited inventory"],
+    yearsExperience: 19,
+    transactions: 42,
+    rating: 4.95,
+    reviewCount: 198,
+    phone: "+1 (555) 010-6118",
+    email: "justine@marsillow.com",
+    motto: "The right parcel finds the right buyer.",
+    bio: "Trusted advisor for the 28 protected rim parcels along the western Valles system. Walks every buyer through the viewshed easement before paperwork.",
+    soldRecent: [
+      { region: "Tithonium rim hold", price: 16200000, sols: 38 },
+      { region: "Candor Chasma overlook", price: 14800000, sols: 89 },
+    ],
+    badges: ["Rim-parcel concierge"],
+  },
+  {
+    id: "vivian-musk",
+    name: "Vivian J. Musk",
+    title: "Heritage corridor agent",
+    region: "Meridiani & rover heritage routes",
+    specialties: ["Heritage corridor", "Equatorial plain", "Cultural value"],
+    yearsExperience: 8,
+    transactions: 33,
+    rating: 4.85,
+    reviewCount: 121,
+    phone: "+1 (555) 010-7222",
+    email: "vivian@marsillow.com",
+    motto: "History is the most underpriced amenity on Mars.",
+    bio: "Specializes in parcels with rover-heritage premiums. Sharp on cultural-easement structures and protected-route covenants.",
+    soldRecent: [
+      { region: "Endurance rim parcel", price: 8200000, sols: 47 },
+      { region: "Victoria approach lot", price: 7400000, sols: 102 },
+    ],
+    badges: ["Heritage easement specialist"],
+  },
+  {
+    id: "strider-musk",
+    name: "Strider Musk",
+    title: "Lakebed & delta lead",
+    region: "Jezero & paleo-lake basins",
+    specialties: ["Lakebed parcel", "Sample cache adjacency", "Delta science"],
+    yearsExperience: 4,
+    transactions: 11,
+    rating: 4.6,
+    reviewCount: 28,
+    phone: "+1 (555) 010-8334",
+    email: "strider@marsillow.com",
+    motto: "Old water. New addresses.",
+    bio: "Up-and-coming agent specializing in paleo-lake parcels. Strong technical chops on sediment cores and water-rights filings.",
+    soldRecent: [
+      { region: "Eberswalde delta plot", price: 5900000, sols: 64 },
+    ],
+    badges: ["Rising star"],
+  },
+  {
+    id: "talulah-musk",
+    name: "Talulah Musk",
+    title: "Press & PR · Marquee parcels",
+    region: "All districts · branded properties",
+    specialties: ["Showcase parcels", "Branding rights", "Press"],
+    yearsExperience: 11,
+    transactions: 17,
+    rating: 4.9,
+    reviewCount: 73,
+    phone: "+1 (555) 010-9007",
+    email: "talulah@marsillow.com",
+    motto: "If your parcel gets a press release, I wrote it.",
+    bio: "Handles communications and press for marquee-name parcels. Buyers come to her when their address will be on a billboard.",
+    soldRecent: [
+      { region: "Olympus PR-rights bundle", price: 4800000, sols: 88 },
+    ],
+    badges: ["Press concierge"],
+  },
+  {
+    id: "damian-musk",
+    name: "Damian Musk",
+    title: "First-time settlers",
+    region: "Equatorial starter parcels",
+    specialties: ["Starter parcels", "Financing", "First-time settler"],
+    yearsExperience: 3,
+    transactions: 22,
+    rating: 4.8,
+    reviewCount: 64,
+    phone: "+1 (555) 010-1117",
+    email: "damian@marsillow.com",
+    motto: "Your first hab pad is a big deal. I treat it that way.",
+    bio: "Patient, education-first agent for first-time settlers. Walks buyers through life-support specs, financing, and what hab pads they actually need.",
+    soldRecent: [
+      { region: "Sinus Meridiani starter", price: 2400000, sols: 21 },
+      { region: "Ares Vallis starter", price: 1850000, sols: 33 },
+    ],
+    badges: ["First-time settler advocate"],
+  },
+  {
+    id: "saxon-musk",
+    name: "Saxon Musk",
+    title: "Equatorial logistics",
+    region: "Cargo corridors & spaceports",
+    specialties: ["Logistics", "Spaceport adjacency", "Industrial easements"],
+    yearsExperience: 7,
+    transactions: 26,
+    rating: 4.7,
+    reviewCount: 52,
+    phone: "+1 (555) 010-1212",
+    email: "saxon@marsillow.com",
+    motto: "Land near the cargo lanes. Always.",
+    bio: "Industrial and logistics-corridor specialist. Knows every planned spaceport, ring road, and port-of-entry permit on Mars.",
+    soldRecent: [
+      { region: "Equatorial ring-road yard", price: 4900000, sols: 110 },
+    ],
+    badges: ["Logistics-corridor expert"],
+  },
+  {
+    id: "octavia-musk",
+    name: "Octavia Musk",
+    title: "Volcanic highlands broker",
+    region: "Gusev & Columbia Hills",
+    specialties: ["Volcanic highland", "Geothermal", "Quiet districts"],
+    yearsExperience: 9,
+    transactions: 31,
+    rating: 4.85,
+    reviewCount: 88,
+    phone: "+1 (555) 010-1416",
+    email: "octavia@marsillow.com",
+    motto: "Quiet land. Loud potential.",
+    bio: "Champion of the southern volcanic highlands — quieter, cheaper, and full of geothermal upside. Comfortable with rugged terrain access.",
+    soldRecent: [
+      { region: "Columbia Hills outcrop", price: 5400000, sols: 76 },
+      { region: "Gusev west tract", price: 4200000, sols: 144 },
+    ],
+    badges: ["Highland district leader"],
+  },
+];
+
+const agentsById = Object.fromEntries(agents.map((a) => [a.id, a]));
 
 const roverRoutes = [
   {
@@ -768,7 +1021,7 @@ function BrandLogo({ size = 32 }) {
   );
 }
 
-function TopNav({ saved, onBrandClick }) {
+function TopNav({ saved, onBrandClick, onBuy, onAgents, onSaved, onLoans }) {
   return (
     <header className="topnav">
       <button className="icon-btn" aria-label="Menu">
@@ -781,19 +1034,21 @@ function TopNav({ saved, onBrandClick }) {
         </span>
       </a>
       <nav className="nav-links" aria-label="Primary">
-        <button className="nav-link">
+        <button className="nav-link" onClick={onBuy}>
           Buy <ChevronDown size={14} />
         </button>
         <button className="nav-link muted">Rent</button>
         <button className="nav-link muted">Sell</button>
-        <button className="nav-link muted">
+        <button className="nav-link muted" onClick={onLoans}>
           Mars Loans <ChevronDown size={14} />
         </button>
-        <button className="nav-link muted">Agent finder</button>
+        <button className="nav-link muted" onClick={onAgents}>
+          Agent finder
+        </button>
         <button className="nav-link muted">Help</button>
       </nav>
       <div className="nav-right">
-        <button className="nav-link muted">
+        <button className="nav-link muted" onClick={onSaved}>
           <Heart size={16} /> Saved {saved > 0 && `(${saved})`}
         </button>
         <button className="btn-outline">Sign in</button>
@@ -1707,8 +1962,9 @@ function ContactModal({ listing, kind, onClose }) {
   );
 }
 
-function DetailSidebar({ listing }) {
+function DetailSidebar({ listing, onAgentClick }) {
   const [modal, setModal] = useState(null);
+  const agent = listing.agentId ? agentsById[listing.agentId] : null;
   return (
     <aside className="detail-side">
       <div className="cta-card">
@@ -1732,6 +1988,23 @@ function DetailSidebar({ listing }) {
           </button>
         </div>
       </div>
+      {agent && (
+        <button
+          className="agent-mini"
+          onClick={() => onAgentClick(agent)}
+          aria-label={`View profile for ${agent.name}`}
+        >
+          <Avatar name={agent.name} size={48} />
+          <span className="agent-mini-text">
+            <span className="agent-mini-kicker">Your agent</span>
+            <strong>{agent.name}</strong>
+            <span className="agent-mini-title">{agent.title}</span>
+            <span className="agent-mini-rating">
+              <StarRating value={agent.rating} count={agent.reviewCount} />
+            </span>
+          </span>
+        </button>
+      )}
       <div className="broker-card">
         <b>Listed by</b>
         {listing.listingAgent}
@@ -1761,7 +2034,7 @@ function DetailSidebar({ listing }) {
   );
 }
 
-function DetailPage({ listing, saved, onBack, onSave }) {
+function DetailPage({ listing, saved, onBack, onSave, onAgentClick }) {
   const perAcre = Math.round(listing.price / listing.acres);
   const estimateDelta = listing.marsestimate - listing.price;
   const estimateUp = estimateDelta >= 0;
@@ -2003,7 +2276,7 @@ function DetailPage({ listing, saved, onBack, onSave }) {
             </section>
           </div>
 
-          <DetailSidebar listing={listing} />
+          <DetailSidebar listing={listing} onAgentClick={onAgentClick} />
         </div>
       </div>
     </main>
@@ -2018,15 +2291,458 @@ const DEFAULT_FILTERS = {
   minRecyclers: 0,
 };
 
+function Avatar({ name, size = 48 }) {
+  const initials = name
+    .split(/\s+/)
+    .map((p) => p[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+  let h = 0;
+  for (let i = 0; i < name.length; i++) {
+    h = (h * 31 + name.charCodeAt(i)) % 360;
+  }
+  return (
+    <span
+      className="avatar"
+      style={{
+        width: size,
+        height: size,
+        fontSize: Math.round(size * 0.42),
+        background: `hsl(${h}, 36%, 32%)`,
+      }}
+      aria-hidden="true"
+    >
+      {initials}
+    </span>
+  );
+}
+
+function StarRating({ value, count }) {
+  const full = Math.floor(value);
+  const half = value - full >= 0.25 && value - full < 0.75;
+  return (
+    <span className="stars" aria-label={`${value.toFixed(2)} out of 5`}>
+      {Array.from({ length: 5 }).map((_, i) => {
+        let cls = "star";
+        if (i < full) cls += " full";
+        else if (i === full && half) cls += " half";
+        return (
+          <span key={i} className={cls}>
+            ★
+          </span>
+        );
+      })}
+      <span className="stars-meta">
+        {value.toFixed(2)}
+        {count != null && <> · {count} reviews</>}
+      </span>
+    </span>
+  );
+}
+
+function PageHeader({ kicker, title, subtitle, children }) {
+  return (
+    <header className="page-header">
+      {kicker && <span className="page-kicker">{kicker}</span>}
+      <h1>{title}</h1>
+      {subtitle && <p>{subtitle}</p>}
+      {children}
+    </header>
+  );
+}
+
+function AgentCard({ agent, listingCount, onSelect }) {
+  return (
+    <button className="agent-card" onClick={() => onSelect(agent)}>
+      <Avatar name={agent.name} size={56} />
+      <div className="agent-card-body">
+        <strong>{agent.name}</strong>
+        <span className="agent-card-title">{agent.title}</span>
+        <StarRating value={agent.rating} count={agent.reviewCount} />
+        <span className="agent-card-stats">
+          <b>{listingCount}</b> active · <b>{agent.transactions}</b> closed ·{" "}
+          {agent.yearsExperience} yrs
+        </span>
+        <span className="agent-card-region">{agent.region}</span>
+      </div>
+    </button>
+  );
+}
+
+function AgentsPage({ query, setQuery, sort, setSort, region, setRegion, onSelect }) {
+  const regionOptions = useMemo(() => {
+    const s = new Set(agents.map((a) => a.region));
+    return ["All regions", ...Array.from(s)];
+  }, []);
+  const filtered = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    return agents.filter((a) => {
+      if (region !== "All regions" && a.region !== region) return false;
+      if (!needle) return true;
+      return [a.name, a.title, a.region, a.specialties.join(" "), a.bio]
+        .join(" ")
+        .toLowerCase()
+        .includes(needle);
+    });
+  }, [query, region]);
+  const sorted = useMemo(() => {
+    const arr = [...filtered];
+    if (sort === "rating") arr.sort((a, b) => b.rating - a.rating);
+    else if (sort === "transactions")
+      arr.sort((a, b) => b.transactions - a.transactions);
+    else if (sort === "experience")
+      arr.sort((a, b) => b.yearsExperience - a.yearsExperience);
+    else if (sort === "name") arr.sort((a, b) => a.name.localeCompare(b.name));
+    return arr;
+  }, [filtered, sort]);
+  const counts = useMemo(() => {
+    const m = {};
+    listings.forEach((l) => {
+      m[l.agentId] = (m[l.agentId] || 0) + 1;
+    });
+    return m;
+  }, []);
+  return (
+    <main className="page">
+      <PageHeader
+        kicker="Agent finder"
+        title="Find your Mars settlement agent"
+        subtitle="Twelve specialists across hemispheres. Yes, they're all Musks."
+      >
+        <div className="agents-controls">
+          <div className="searchbox">
+            <Search size={16} />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search by name, region, or specialty"
+            />
+          </div>
+          <select value={region} onChange={(e) => setRegion(e.target.value)}>
+            {regionOptions.map((r) => (
+              <option key={r}>{r}</option>
+            ))}
+          </select>
+          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+            <option value="rating">Sort: highest rated</option>
+            <option value="transactions">Sort: most closed</option>
+            <option value="experience">Sort: most experienced</option>
+            <option value="name">Sort: A → Z</option>
+          </select>
+        </div>
+      </PageHeader>
+      <div className="agents-grid">
+        {sorted.map((a) => (
+          <AgentCard
+            key={a.id}
+            agent={a}
+            listingCount={counts[a.id] || 0}
+            onSelect={onSelect}
+          />
+        ))}
+        {sorted.length === 0 && (
+          <div className="empty-state">
+            <strong>No agents matched.</strong>
+            <span>Try clearing the region or search.</span>
+          </div>
+        )}
+      </div>
+    </main>
+  );
+}
+
+function AgentDetailPage({ agent, savedSet, onBackToAgents, onSelectListing, onSave }) {
+  const [modal, setModal] = useState(false);
+  const myListings = useMemo(
+    () => listings.filter((l) => l.agentId === agent.id),
+    [agent.id]
+  );
+  return (
+    <main className="page">
+      <button className="back-link" onClick={onBackToAgents}>
+        <ArrowLeft size={16} /> All agents
+      </button>
+      <header className="agent-hero">
+        <Avatar name={agent.name} size={120} />
+        <div>
+          <span className="page-kicker">Marsillow agent</span>
+          <h1>{agent.name}</h1>
+          <p className="agent-title">{agent.title}</p>
+          <StarRating value={agent.rating} count={agent.reviewCount} />
+          <p className="agent-motto">"{agent.motto}"</p>
+          <div className="agent-badges">
+            {agent.badges.map((b) => (
+              <span key={b}>{b}</span>
+            ))}
+          </div>
+        </div>
+        <div className="agent-cta">
+          <button className="btn-block primary" onClick={() => setModal(true)}>
+            Contact {agent.name.split(" ")[0]}
+          </button>
+          <div className="agent-contact">
+            <span>{agent.phone}</span>
+            <span>{agent.email}</span>
+          </div>
+        </div>
+      </header>
+
+      <section className="agent-stats-grid">
+        <div>
+          <b>{agent.transactions}</b>
+          <span>Lifetime closings</span>
+        </div>
+        <div>
+          <b>{myListings.length}</b>
+          <span>Active listings</span>
+        </div>
+        <div>
+          <b>{agent.yearsExperience}</b>
+          <span>Years experience</span>
+        </div>
+        <div>
+          <b>{agent.rating.toFixed(2)}</b>
+          <span>Avg. rating</span>
+        </div>
+      </section>
+
+      <section className="section">
+        <h2>About {agent.name.split(" ")[0]}</h2>
+        <p>{agent.bio}</p>
+      </section>
+
+      <section className="section">
+        <h2>Specialties</h2>
+        <div className="tag-row">
+          {agent.specialties.map((s) => (
+            <span key={s}>{s}</span>
+          ))}
+        </div>
+      </section>
+
+      {myListings.length > 0 && (
+        <section className="section">
+          <h2>{agent.name.split(" ")[0]}'s active listings</h2>
+          <div className="agent-listings-grid">
+            {myListings.map((l) => (
+              <ListingCard
+                key={l.id}
+                listing={l}
+                hovered={false}
+                saved={savedSet.has(l.id)}
+                onSelect={onSelectListing}
+                onHover={() => {}}
+                onSave={onSave}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section className="section">
+        <h2>Recently sold by {agent.name.split(" ")[0]}</h2>
+        <table className="history-table">
+          <thead>
+            <tr>
+              <th>Region</th>
+              <th>Sale price</th>
+              <th>Days on market</th>
+            </tr>
+          </thead>
+          <tbody>
+            {agent.soldRecent.map((s) => (
+              <tr key={s.region}>
+                <td>{s.region}</td>
+                <td>{formatMoney(s.price)}</td>
+                <td>{s.sols} sols</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      {modal && (
+        <ContactModal
+          listing={{
+            id: agent.id,
+            title: agent.name,
+            listingAgent: agent.name,
+          }}
+          kind="info"
+          onClose={() => setModal(false)}
+        />
+      )}
+    </main>
+  );
+}
+
+function SavedPage({ savedSet, onBack, onSelectListing, onSave }) {
+  const saved = listings.filter((l) => savedSet.has(l.id));
+  return (
+    <main className="page">
+      <button className="back-link" onClick={onBack}>
+        <ArrowLeft size={16} /> Back to search
+      </button>
+      <PageHeader
+        kicker="Your favorites"
+        title="Saved parcels"
+        subtitle={`${saved.length} ${
+          saved.length === 1 ? "parcel" : "parcels"
+        } saved`}
+      />
+      {saved.length === 0 ? (
+        <div className="empty-state">
+          <strong>No saved parcels yet.</strong>
+          <span>Tap the heart on any listing to save it for later.</span>
+        </div>
+      ) : (
+        <div className="agent-listings-grid">
+          {saved.map((l) => (
+            <ListingCard
+              key={l.id}
+              listing={l}
+              hovered={false}
+              saved
+              onSelect={onSelectListing}
+              onHover={() => {}}
+              onSave={onSave}
+            />
+          ))}
+        </div>
+      )}
+    </main>
+  );
+}
+
+function MarsLoansPage({ onBack, listings: ls, onSelectListing }) {
+  const [price, setPrice] = useState(15100000);
+  const [downPct, setDownPct] = useState(20);
+  const [termYears, setTermYears] = useState(30);
+  const apr = 0.085; // playful rate
+  const principal = price * (1 - downPct / 100);
+  const months = termYears * 12;
+  const r = apr / 12;
+  const monthly =
+    months > 0 && r > 0
+      ? (principal * (r * Math.pow(1 + r, months))) / (Math.pow(1 + r, months) - 1)
+      : 0;
+  const totalInterest = monthly * months - principal;
+  // Slice the monthly payment into roughly one Earth month's worth of sols.
+  const sols = Math.round(monthly / 30);
+  return (
+    <main className="page">
+      <button className="back-link" onClick={onBack}>
+        <ArrowLeft size={16} /> Back to search
+      </button>
+      <PageHeader
+        kicker="Mars Loans"
+        title="Refinance your parcel — at interplanetary rates"
+        subtitle="Use Marsillow's terraform-mortgage calculator to plan your monthly payment in sols. Inter-orbital prime rate today: 8.50%."
+      />
+      <div className="loans-layout">
+        <div className="loan-form">
+          <label>
+            <span>Parcel price</span>
+            <input
+              type="number"
+              min="100000"
+              step="100000"
+              value={price}
+              onChange={(e) => setPrice(Number(e.target.value) || 0)}
+            />
+          </label>
+          <label>
+            <span>Down payment ({downPct}%)</span>
+            <input
+              type="range"
+              min="0"
+              max="80"
+              step="5"
+              value={downPct}
+              onChange={(e) => setDownPct(Number(e.target.value))}
+            />
+          </label>
+          <label>
+            <span>Loan term ({termYears} years)</span>
+            <input
+              type="range"
+              min="5"
+              max="40"
+              step="5"
+              value={termYears}
+              onChange={(e) => setTermYears(Number(e.target.value))}
+            />
+          </label>
+          <p className="loan-note">
+            Marsillow's terraform-mortgage assumes 1 sol = 24h 39m and a fixed
+            inter-orbital prime rate of <b>8.50% APR</b>. Down payment is
+            collected on Earth; principal is escrowed in low-Mars orbit.
+          </p>
+        </div>
+        <div className="loan-summary">
+          <div className="loan-stat hero">
+            <b>{formatMoney(Math.round(monthly))}</b>
+            <span>per month · ~{formatMoney(sols)} per sol</span>
+          </div>
+          <div className="loan-stat">
+            <b>{formatMoney(Math.round(principal))}</b>
+            <span>Loan principal</span>
+          </div>
+          <div className="loan-stat">
+            <b>{formatMoney(Math.round(totalInterest))}</b>
+            <span>Total interest over {termYears} years</span>
+          </div>
+          <div className="loan-stat">
+            <b>{formatMoney(Math.round(price * (downPct / 100)))}</b>
+            <span>Down payment ({downPct}% of {formatMoney(price)})</span>
+          </div>
+          <button className="btn-block primary">Get pre-qualified</button>
+        </div>
+      </div>
+      <section className="section">
+        <h2>Pre-qualify against an active listing</h2>
+        <div className="agent-listings-grid">
+          {ls.slice(0, 3).map((l) => (
+            <button
+              key={l.id}
+              className="loan-listing-pick"
+              onClick={() => {
+                setPrice(l.price);
+                onSelectListing(null); // stay on this page; just update inputs
+              }}
+            >
+              <img src={l.image} alt={l.region} />
+              <div>
+                <strong>{l.title}</strong>
+                <span>{formatMoney(l.price)} · {l.acres} acres</span>
+              </div>
+            </button>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
+
 function App() {
   const [query, setQuery] = useState("");
   const [view, setView] = useState("map");
   const [hoveredId, setHoveredId] = useState(null);
-  const [selectedListing, setSelectedListing] = useState(null);
   const [savedSet, setSavedSet] = useState(() => new Set());
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
   const [sort, setSort] = useState("picks");
   const [savedSearch, setSavedSearch] = useState(false);
+  const [page, setPage] = useState({ kind: "search" });
+  const [agentQuery, setAgentQuery] = useState("");
+  const [agentSort, setAgentSort] = useState("rating");
+  const [agentRegion, setAgentRegion] = useState("All regions");
+
+  const navigate = (next) => {
+    window.scrollTo(0, 0);
+    setPage(next);
+  };
 
   const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
@@ -2101,56 +2817,116 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, filters, sort]);
 
-  useEffect(() => {
-    if (selectedListing) {
-      window.scrollTo(0, 0);
-    }
-  }, [selectedListing]);
+  const goSearch = () => navigate({ kind: "search" });
+  const goAgents = () => navigate({ kind: "agents" });
+  const goAgent = (agent) => navigate({ kind: "agent", agent });
+  const goDetail = (listing) => navigate({ kind: "detail", listing });
+  const goSaved = () => navigate({ kind: "saved" });
+  const goLoans = () => navigate({ kind: "loans" });
 
-  if (selectedListing) {
-    return (
-      <DetailPage
-        listing={selectedListing}
-        saved={savedSet.has(selectedListing.id)}
-        onBack={() => setSelectedListing(null)}
-        onSave={toggleSave}
-      />
-    );
-  }
+  const renderPage = () => {
+    switch (page.kind) {
+      case "detail":
+        return (
+          <DetailPage
+            listing={page.listing}
+            saved={savedSet.has(page.listing.id)}
+            onBack={goSearch}
+            onSave={toggleSave}
+            onAgentClick={goAgent}
+          />
+        );
+      case "agents":
+        return (
+          <AgentsPage
+            query={agentQuery}
+            setQuery={setAgentQuery}
+            sort={agentSort}
+            setSort={setAgentSort}
+            region={agentRegion}
+            setRegion={setAgentRegion}
+            onSelect={goAgent}
+          />
+        );
+      case "agent":
+        return (
+          <AgentDetailPage
+            agent={page.agent}
+            savedSet={savedSet}
+            onBackToAgents={goAgents}
+            onSelectListing={goDetail}
+            onSave={toggleSave}
+          />
+        );
+      case "saved":
+        return (
+          <SavedPage
+            savedSet={savedSet}
+            onBack={goSearch}
+            onSelectListing={goDetail}
+            onSave={toggleSave}
+          />
+        );
+      case "loans":
+        return (
+          <MarsLoansPage
+            onBack={goSearch}
+            listings={sorted}
+            onSelectListing={goDetail}
+          />
+        );
+      default:
+        return (
+          <>
+            <FilterBar
+              query={query}
+              setQuery={setQuery}
+              filters={filters}
+              setFilters={setFilters}
+              savedSearch={savedSearch}
+              onSaveSearch={() => setSavedSearch(true)}
+            />
+            <div className="split">
+              <MapPane
+                listings={sorted}
+                selectedId={null}
+                hoveredId={hoveredId}
+                onSelect={goDetail}
+                onHover={setHoveredId}
+                view={view}
+                setView={setView}
+              />
+              <ResultsPane
+                listings={sorted}
+                total={listings.length}
+                hoveredId={hoveredId}
+                savedSet={savedSet}
+                sort={sort}
+                setSort={setSort}
+                onSelect={goDetail}
+                onHover={setHoveredId}
+                onSave={toggleSave}
+              />
+            </div>
+          </>
+        );
+    }
+  };
 
   return (
     <>
-      <TopNav saved={savedSet.size} onBrandClick={(e) => e.preventDefault()} />
-      <FilterBar
-        query={query}
-        setQuery={setQuery}
-        filters={filters}
-        setFilters={setFilters}
-        savedSearch={savedSearch}
-        onSaveSearch={() => setSavedSearch(true)}
+      <TopNav
+        saved={savedSet.size}
+        onBrandClick={(e) => {
+          e.preventDefault();
+          goSearch();
+        }}
+        onAgents={goAgents}
+        onSaved={goSaved}
+        onLoans={goLoans}
+        onBuy={goSearch}
       />
-      <div className="split">
-        <MapPane
-          listings={sorted}
-          selectedId={null}
-          hoveredId={hoveredId}
-          onSelect={setSelectedListing}
-          onHover={setHoveredId}
-          view={view}
-          setView={setView}
-        />
-        <ResultsPane
-          listings={sorted}
-          total={listings.length}
-          hoveredId={hoveredId}
-          savedSet={savedSet}
-          sort={sort}
-          setSort={setSort}
-          onSelect={setSelectedListing}
-          onHover={setHoveredId}
-          onSave={toggleSave}
-        />
-      </div>
+      {renderPage()}
     </>
   );
 }

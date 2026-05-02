@@ -457,6 +457,455 @@ a {
   font-size: 14px;
 }
 
+/* ---- Generic page (agents, saved, loans) ---- */
+
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 24px 80px;
+}
+
+.page-header {
+  margin-bottom: 22px;
+  display: grid;
+  gap: 6px;
+}
+
+.page-kicker {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mars-red);
+}
+
+.page-header h1 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.page-header p {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 15px;
+  max-width: 720px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  background: transparent;
+  color: var(--brand-blue);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 6px 8px 6px 0;
+  margin-bottom: 4px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* ---- Avatar + stars ---- */
+
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 14px;
+  color: #f5b400;
+  line-height: 1;
+}
+
+.stars .star {
+  color: #d8dde2;
+}
+
+.stars .star.full {
+  color: #f5b400;
+}
+
+.stars .star.half {
+  color: #f5b400;
+  position: relative;
+  background: linear-gradient(90deg, #f5b400 50%, #d8dde2 50%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stars-meta {
+  margin-left: 6px;
+  color: var(--ink-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ---- Agents page ---- */
+
+.agents-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.agents-controls .searchbox {
+  max-width: 360px;
+}
+
+.agents-controls select {
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+}
+
+.agents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.agent-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  text-align: left;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.agent-card:hover {
+  border-color: var(--brand-blue);
+  transform: translateY(-1px);
+}
+
+.agent-card-body {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.agent-card-body strong {
+  font-size: 16px;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.agent-card-title {
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+.agent-card-stats {
+  font-size: 13px;
+  color: var(--ink);
+  margin-top: 6px;
+}
+
+.agent-card-region {
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+/* ---- Agent detail ---- */
+
+.agent-hero {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 22px 0 26px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 18px;
+}
+
+.agent-hero h1 {
+  margin: 6px 0 4px;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.agent-title {
+  margin: 0 0 10px;
+  font-size: 15px;
+  color: var(--ink-muted);
+}
+
+.agent-motto {
+  margin: 12px 0 8px;
+  font-size: 14px;
+  color: var(--ink);
+  font-style: italic;
+}
+
+.agent-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.agent-badges span {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--brand-blue-soft);
+  color: var(--brand-blue);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.agent-cta {
+  display: grid;
+  gap: 10px;
+  min-width: 220px;
+}
+
+.agent-contact {
+  display: grid;
+  gap: 2px;
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+.agent-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.agent-stats-grid > div {
+  background: var(--surface-tinted);
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.agent-stats-grid b {
+  display: block;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.agent-stats-grid span {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 2px;
+}
+
+.agent-listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 720px) {
+  .agent-hero {
+    grid-template-columns: auto 1fr;
+  }
+  .agent-cta {
+    grid-column: 1 / -1;
+  }
+  .agent-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---- Agent mini in detail sidebar ---- */
+
+.agent-mini {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.agent-mini:hover {
+  border-color: var(--brand-blue);
+}
+
+.agent-mini-text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.agent-mini-kicker {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--mars-red);
+  font-weight: 700;
+}
+
+.agent-mini-text strong {
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.agent-mini-title {
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+.agent-mini-rating {
+  margin-top: 2px;
+}
+
+/* ---- Mars Loans ---- */
+
+.loans-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 720px) {
+  .loans-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.loan-form {
+  display: grid;
+  gap: 16px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.loan-form label {
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.loan-form input[type="number"] {
+  font: inherit;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.loan-form input[type="range"] {
+  accent-color: var(--brand-blue);
+}
+
+.loan-note {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.loan-summary {
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--brand-blue-soft);
+}
+
+.loan-stat {
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.loan-stat b {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.loan-stat span {
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+.loan-stat.hero b {
+  font-size: 32px;
+  letter-spacing: -0.02em;
+}
+
+.loan-listing-pick {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  text-align: left;
+  font-family: inherit;
+}
+
+.loan-listing-pick:hover {
+  border-color: var(--brand-blue);
+}
+
+.loan-listing-pick img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.loan-listing-pick strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.loan-listing-pick span {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
 /* ---------- Split view ---------- */
 
 .split {
